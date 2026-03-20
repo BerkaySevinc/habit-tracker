@@ -2,9 +2,10 @@
 
 **Habit Tracker** web application written in HTML, CSS, and JavaScript.
 A clean and minimal browser-based app for building and tracking daily habits with scheduling, calendar, and statistics support.
+</br>
+</br>
 
-## Details
-
+# Details
 - Written in HTML, CSS, and JavaScript.
 - No frameworks or build tools — runs directly in the browser.
 - Organizes habits into time slots: Morning, Daytime, Evening, Anytime, and Interval.
@@ -17,9 +18,9 @@ A clean and minimal browser-based app for building and tracking daily habits wit
 - **All Habits page** allows adding, editing, and managing all habits.
 - Data is persisted locally in the browser via `localStorage`.
 - Uses **Chart.js** for rendering statistics charts.
+</br>
 
 ## Medias
-
 ![Screenshot 1](Introduction%20Media/Screenshot%201.png)
 ![Screenshot 2](Introduction%20Media/Screenshot%202.png)
 ![Screenshot 3](Introduction%20Media/Screenshot%203.png)
