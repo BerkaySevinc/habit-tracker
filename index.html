@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <title>Alışkanlık Takibi</title>
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E✅%3C/text%3E%3C/svg%3E">
+
+    <meta charset="UTF-8" />
+
+    <link rel="stylesheet" href="assets/css/style.css" />
+
+    <script src="assets/js/vendor/chart.umd.min.js"></script> <!-- Chart library -->
+</head>
+
+<body>
+    <div id="app" style="display: none;">
+
+
+        <!-- Navigation tabs -->
+        <nav class="tabs">
+            <button class="tab-btn" data-page="today">🎯 Bugün</button>
+            <button class="tab-btn" data-page="calendar">📅 Takvim</button>
+            <button class="tab-btn" data-page="stats">📊 İstatistikler</button>
+            <button class="tab-btn" data-page="habits">⚙️ Tüm Alışkanlıklar</button>
+        </nav>
+
+
+        <main>
+
+            <!-- TODAY PAGE -->
+            <section id="page-today" class="page">
+
+                <div class="seven-days" id="seven-days"></div>
+
+                <div id="time-sections">
+                    <div class="time-section" data-slot="start">
+                        <div class="time-title">🌅 Gün Başı</div>
+                        <div class="droplist" data-slot="start"></div>
+                    </div>
+                    <div class="time-section" data-slot="day">
+                        <div class="time-title">🌤️ Gün İçi</div>
+                        <div class="droplist" data-slot="day"></div>
+                    </div>
+                    <div class="time-section" data-slot="end">
+                        <div class="time-title">🌙 Gün Sonu</div>
+                        <div class="droplist" data-slot="end"></div>
+                    </div>
+                    <div class="time-section" data-slot="any">
+                        <div class="time-title">🌀 Herhangi Bir Zaman</div>
+                        <div class="droplist" data-slot="any"></div>
+                    </div>
+                    <div class="time-section" data-slot="inverse">
+                        <div class="time-title">🛑 Ters/Kaçınılan Alışkanlıklar</div>
+                        <div class="droplist" data-slot="inverse"></div>
+                    </div>
+                    <div class="time-section" data-slot="interval">
+                        <div class="time-title">🔁 Periyodik Alışkanlıklar</div>
+                        <div class="droplist" data-slot="interval"></div>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- CALENDAR PAGE -->
+            <section id="page-calendar" class="page">
+
+                <div class="calendar-header">
+                    <button class="btn ghost" id="prev-month" title="Önceki Ay">◀</button>
+                    <div id="month-label"></div>
+                    <button class="btn ghost" id="next-month" title="Sonraki Ay">▶</button>
+                </div>
+
+                <div id="calendar">
+
+                    <div class="weekday-row">
+                        <div>Pzt</div>
+                        <div>Sal</div>
+                        <div>Çar</div>
+                        <div>Per</div>
+                        <div>Cum</div>
+                        <div>Cmt</div>
+                        <div>Paz</div>
+                    </div>
+                    <div id="calendar-grid" class="calendar-grid"></div>
+                    <div class="legend">
+                        <span class="dot gold"></span> %100 (Altın)
+                        <span class="dot silver"></span> %50–%99 (Gümüş)
+                        <span class="dot bronze"></span> %1–%50 (Bronz)
+                        <span class="dot none"></span> %0 (Boş)
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- ALL HABITS / ADD-EDIT -->
+            <section id="page-habits" class="page">
+
+                <div class="habits-header">
+                    <button class="btn primary" id="open-add">+ Alışkanlık Ekle</button>
+                </div>
+
+                <div id="all-habits" class="all-habits">
+
+                    <div id="time-sections">
+                        <div class="time-section" data-slot="start">
+                            <div class="time-title">🌅 Gün Başı</div>
+                            <div class="droplist" data-slot="start"></div>
+                        </div>
+                        <div class="time-section" data-slot="day">
+                            <div class="time-title">🌤️ Gün İçi</div>
+                            <div class="droplist" data-slot="day"></div>
+                        </div>
+                        <div class="time-section" data-slot="end">
+                            <div class="time-title">🌙 Gün Sonu</div>
+                            <div class="droplist" data-slot="end"></div>
+                        </div>
+                        <div class="time-section" data-slot="any">
+                            <div class="time-title">🌀 Herhangi Bir Zaman</div>
+                            <div class="droplist" data-slot="any"></div>
+                        </div>
+                        <div class="time-section" data-slot="inverse">
+                            <div class="time-title">🛑 Ters/Kaçınılan Alışkanlıklar</div>
+                            <div class="droplist" data-slot="inverse"></div>
+                        </div>
+                        <div class="time-section" data-slot="interval">
+                            <div class="time-title">🔁 Periyodik Alışkanlıklar</div>
+                            <div class="droplist" data-slot="interval"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- STATISTICS PAGE -->
+            <section id="page-stats" class="page">
+
+                <select id="stats-type" style="font-weight: 800; letter-spacing: .4px; width: 200px; height: 50px;">
+                    <option value="week">Son 7 Gün</option>
+                    <option value="month" selected>Son 30 Gün</option>
+                    <option value="year">Son 1 Yıl</option>
+                    <option value="all">Tüm Zamanlar</option>
+                </select>
+
+                <canvas id="generalChart" style="max-width: 90%; height: 90%; margin-top: 10px;"></canvas>
+
+                <div id="all-habits" class="all-habits" style="margin-top: 50px; width: 60%;">
+
+                    <div id="time-sections">
+                        <div class="time-section" data-slot="start">
+                            <div class="time-title">🌅 Gün Başı</div>
+                            <div class="droplist" data-slot="start"></div>
+                        </div>
+                        <div class="time-section" data-slot="day">
+                            <div class="time-title">🌤️ Gün İçi</div>
+                            <div class="droplist" data-slot="day"></div>
+                        </div>
+                        <div class="time-section" data-slot="end">
+                            <div class="time-title">🌙 Gün Sonu</div>
+                            <div class="droplist" data-slot="end"></div>
+                        </div>
+                        <div class="time-section" data-slot="any">
+                            <div class="time-title">🌀 Herhangi Bir Zaman</div>
+                            <div class="droplist" data-slot="any"></div>
+                        </div>
+                        <div class="time-section" data-slot="inverse">
+                            <div class="time-title">🛑 Ters/Kaçınılan Alışkanlıklar</div>
+                            <div class="droplist" data-slot="inverse"></div>
+                        </div>
+                        <div class="time-section" data-slot="interval">
+                            <div class="time-title">🔁 Periyodik Alışkanlıklar</div>
+                            <div class="droplist" data-slot="interval"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+
+
+        <!-- DYNAMIC: ADD / EDIT PANEL -->
+        <div id="sheet" class="sheet hidden">
+            <div class="sheet-backdrop"></div>
+            <div class="sheet-panel">
+                <div class="sheet-head">
+                    <button id="sheet-close" class="icon-btn" title="Kapat">✖</button>
+                    <h2 id="sheet-title">Alışkanlık Ekle</h2>
+                </div>
+
+                <!-- STEP 1: TYPE CHOICE SCREEN -->
+                <div class="screen" id="choice-screen">
+                    <div class="choice-buttons">
+                        <button class="choice-btn" data-choice="weekly">📅 Haftalık</button>
+                        <button class="choice-btn" data-choice="interval">🔁 Periyodik</button>
+                        <button class="choice-btn" data-choice="inverse">🛑 Ters/Kaçınılan</button>
+                    </div>
+                </div>
+
+                <!-- STEP 2: FORM SCREEN -->
+                <div class="screen" id="form-screen">
+                    <form id="habit-form">
+                        <input type="hidden" name="id" />
+                        <div class="field">
+                            <label>İsim</label>
+                            <input name="name" type="text" placeholder="Örn. Su İç" required />
+                        </div>
+
+                        <div class="field">
+                            <label>Simge</label>
+                            <span id="icon-preview" class="preview-box">💧</span>
+                            <div id="icon-popover" class="popover hidden">
+                                <div class="emoji-grid" id="emoji-grid" tabindex="-1" aria-label="Emoji seçimi"></div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Renk</label>
+                            <div class="color-grid" id="color-grid"></div>
+                        </div>
+
+                        <div class="field" name="zaman">
+                            <label>Zaman</label>
+                            <div class="time-slot-wrap" style="display: inline-block;">
+                                <div class="segmented" id="time-slot" style="display: flex;">
+                                    <button type="button" data-value="start" class="seg active not-available"
+                                        style="padding-right: 25px;">🌅 Gün Başı</button>
+                                    <button type="button" data-value="day" class="seg" style="padding-right: 28px;">🌤️
+                                        Gün İçi</button>
+                                    <button type="button" data-value="end" class="seg" style="padding-right: 28px;">🌙
+                                        Gün Sonu</button>
+                                    <button type="button" data-value="any" class="seg" style="padding-right: 28px;">🌀
+                                        Herhangi</button>
+                                </div>
+
+                                <div>
+                                    <button type="button" id="add-time-variation" class="checkbox-btn add hidden"
+                                        style="width: 100%; margin-top: 10px;" title="Varyasyon Ekle">✚</button>
+                                </div>
+                            </div>
+                            <input type="hidden" name="timeSlot" value="start" />
+                        </div>
+
+                        <div class="field" name="repeat">
+                            <label>Tekrar Süresi</label>
+                            <!-- Weekly schedule -->
+                            <div id="weekly-box" class="repeat-box">
+                                <label id="variation-name"
+                                    style="align-self: center; margin-left: 0; display: none; margin-bottom: 5px; margin-top: 15px;"></label>
+                                <div class="dow-grid" id="dow-grid">
+                                    <input type="checkbox" name="dayGridValidation"
+                                        style="width: 1px; height: 1px; opacity: 0; border: none; padding: 0; position: absolute; align-self: center; justify-self: center;"
+                                        required>
+                                    <button type="button" data-dow="0" class="dow">Pzt</button>
+                                    <button type="button" data-dow="1" class="dow">Sal</button>
+                                    <button type="button" data-dow="2" class="dow">Çar</button>
+                                    <button type="button" data-dow="3" class="dow">Per</button>
+                                    <button type="button" data-dow="4" class="dow">Cum</button>
+                                    <button type="button" data-dow="5" class="dow">Cmt</button>
+                                    <button type="button" data-dow="6" class="dow">Paz</button>
+                                </div>
+                                <div class="desc" id="weekly-desc" style="display: none;"></div>
+
+                                <div>
+                                    <button type="button" id="add-weekly-variation" class="checkbox-btn add"
+                                        style="width: 100%; margin-bottom: -1px;" title="Varyasyon Ekle">✚</button>
+                                </div>
+                            </div>
+
+                            <!-- Interval (every X days / weeks / months) -->
+                            <div id="interval-box" class="repeat-box">
+                                <div class="interval-grid">
+                                    <span>Her</span>
+                                    <input type="number" id="interval-number" min="1" max="60" value="1"
+                                        style="width:60px; text-align: center;">
+                                    <select id="interval-type">
+                                        <option value="day">Günde</option>
+                                        <option value="week">Haftada</option>
+                                        <option value="month">Ayda</option>
+                                    </select>
+                                    <span>1</span>
+                                </div>
+                                <div class="desc" id="interval-desc"></div>
+                            </div>
+                        </div>
+
+                        <div class="actions">
+                            <button type="submit" class="btn primary">Kaydet</button>
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="assets/js/constants.js"></script>
+
+    <script src="assets/js/storage.js"></script>
+
+    <script src="assets/js/helpers.js"></script>
+
+    <script src="assets/js/habit.js"></script>
+    
+    <script src="assets/js/renderHabitForm.js"></script>
+    <script src="assets/js/renderAllHabits.js"></script>
+    <script src="assets/js/renderDayHabits.js"></script>
+    <script src="assets/js/renderCalendar.js"></script>
+    <script src="assets/js/renderStats.js"></script>
+
+    <script src="assets/js/app.js"></script>
+
+    <script src="assets/js/settings.js"></script>
+
+</body>
+
+</html>
