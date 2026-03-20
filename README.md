@@ -8,6 +8,7 @@ A clean and minimal browser-based app for building and tracking daily habits wit
 # Details
 - Written in HTML, CSS, and JavaScript.
 - No frameworks or build tools — runs directly in the browser.
+- The user interface is in **Turkish**.
 - Organizes habits into time slots: Morning, Daytime, Evening, Anytime, and Interval.
 - Supports **inverse/avoidance habits** (habits to break rather than build).
 - Supports **weekly habits** (specific days of the week) and **interval habits** (every X days/weeks/months).
