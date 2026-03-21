@@ -18,6 +18,7 @@ A clean and minimal browser-based app for building and tracking daily habits wit
 - **Statistics page** shows a completion chart across selectable time ranges (7 days, 30 days, 1 year, all time).
 - **All Habits page** allows adding, editing, and managing all habits.
 - Data is persisted locally in the browser via `localStorage`.
+- All external dependencies (Chart.js) are **bundled locally** — no internet connection required.
 - Uses **Chart.js** for rendering statistics charts.
 </br>
 
