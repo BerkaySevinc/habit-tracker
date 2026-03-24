@@ -22,7 +22,7 @@ A clean and minimal browser-based app for building and tracking daily habits wit
 - Uses **Chart.js** for rendering statistics charts.
 </br>
 
-# Medias
+# Media
 ![Screenshot 1](Introduction%20Media/Screenshot%201.png)
 ![Screenshot 2](Introduction%20Media/Screenshot%202.png)
 ![Screenshot 3](Introduction%20Media/Screenshot%203.png)
